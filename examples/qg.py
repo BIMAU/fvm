@@ -14,10 +14,10 @@ def main():
 
     dim = 2
     dof = 3
-    nx = 32
-    ny = nx
-    nz = 1
-    n = dof * nx * ny * nz
+    nx  = 32
+    ny  = nx
+    nz  = 1
+    n   = dof * nx * ny * nz
 
     # Define the problem
     parameters = {'Problem Type': 'Double Gyre',
@@ -60,7 +60,7 @@ def main():
     # Add asymmetry to the problem
     ds = 10
     target = 1
-    interface.set_parameter('Maximum Iterations', 1)
+    interface.set_parameter('Maximum Continuation Steps', 1)
     interface.set_parameter('Reynolds Number', 16)
     x3, mu3, data3 = continuation.continuation(x1, 'Asymmetry Parameter', 0, target, ds)
 
@@ -68,7 +68,7 @@ def main():
     # meaning we can't stay on the unstable branch
     ds = 5
     target = 40
-    interface.set_parameter('Maximum Iterations', 1000)
+    interface.set_parameter('Maximum Continuation Steps', 1000)
     x4, mu4, data4 = continuation.continuation(x3, 'Reynolds Number', 16, target, ds)
 
     # Go back to the symmetric problem
@@ -85,7 +85,6 @@ def main():
     plt.plot(data2.mu, data2.value)
     plt.plot(data6.mu, data6.value)
     plt.show()
-
 
 if __name__ == '__main__':
     main()
