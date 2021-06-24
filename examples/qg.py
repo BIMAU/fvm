@@ -14,10 +14,10 @@ def main():
 
     dim = 2
     dof = 3
-    nx  = 32
-    ny  = nx
-    nz  = 1
-    n   = dof * nx * ny * nz
+    nx = 32
+    ny = nx
+    nz = 1
+    n = dof * nx * ny * nz
 
     # Define the problem
     parameters = {'Problem Type': 'Double Gyre',
@@ -86,5 +86,6 @@ def main():
     plt.plot(data6.mu, data6.value)
     plt.show()
 
+    
 if __name__ == '__main__':
     main()
