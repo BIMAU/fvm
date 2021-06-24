@@ -330,7 +330,7 @@ class Continuation:
 
                 if eigs0 is not None and numpy.sign(eigs[0].real) != numpy.sign(eigs0[0].real):
                     deigs = eigs - eigs0
-                    x, mu = self.detect_bifurcation(parameter_name, x, mu, dx, dmu, eigs, deigs, ds, maxit)
+                    x, mu = self.detect_bifurcation(parameter_name, x, mu, dx, dmu, eigs, deigs, ds, maxsteps - j)
 
                     self.store_data(data, x, mu)
 
