@@ -306,10 +306,10 @@ class Continuation:
         data = Data()
         self.store_data(data, x, mu)
 
-        maxit = self.parameters.get('Maximum Iterations', 1000)
+        maxsteps = self.parameters.get('Maximum Continuation Steps', 1000)
 
         # Perform the continuation
-        for j in range(maxit):
+        for j in range(maxsteps):
             mu0 = mu
 
             x, mu, dx, dmu, ds = self.step(parameter_name, x, mu, dx, dmu, ds)
@@ -318,7 +318,7 @@ class Continuation:
 
             if (mu >= target and mu0 < target) or (mu <= target and mu0 > target):
                 # Converge onto the end point
-                x, mu = self.converge(parameter_name, x, mu, dx, dmu, target, ds, maxit)
+                x, mu = self.converge(parameter_name, x, mu, dx, dmu, target, ds, maxsteps - j)
 
                 self.store_data(data, x, mu)
 
@@ -330,7 +330,7 @@ class Continuation:
 
                 if eigs0 is not None and numpy.sign(eigs[0].real) != numpy.sign(eigs0[0].real):
                     deigs = eigs - eigs0
-                    x, mu = self.detect_bifurcation(parameter_name, x, mu, dx, dmu, eigs, deigs, ds, maxit)
+                    x, mu = self.detect_bifurcation(parameter_name, x, mu, dx, dmu, eigs, deigs, ds, maxsteps - j)
 
                     self.store_data(data, x, mu)
 
